@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} HomePage | {{ block.super }} {% endblock %}
+
+
+{% block content %}
+    <h1>HomePage</h1>
+    <div class="main" style="margin: 100px">
+    <div class="img_container" style="float: left; width: 48%">
+        <img id="first" src="{% static 'doc_1.jpg' %}" alt="Doctor's Pic">
+        <img id="second" src="{% static 'doc_1.png' %}" alt="Doctor's Pic">
+    </div>
+        <div class="text_cont">
+            <h1>Welcome to HMS</h1>
+            <h2>Random Text</h2>
+            <p style="float: left; margin:10px 20px">Smile spoke total few great had never their too. Amongst moments do in arrived at my replied. Fat weddings servants but man believed prospect. Companions understood is as especially pianoforte connection introduced. So narrow formal length my highly longer afford oh. Tall neat he make or at dull ye.</p>
+            <ul>
+                <li>Amongst moments do in arrived at my replied.</li>
+                <li>Fat weddings servants but man believed prospect.</li>
+                <li>Companions understood is as especially pianoforte connection</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %} Prescription | {{ block.super }} {% endblock %}
+
+{% block content %}
+    {% if mode == 'view_p' %}
+        <h1>Medical History</h1>
+        {% if pres %}
+            <table>
+                <thead>
+                <td>Date</td>
+                <td>Disease</td>
+                <td>Medicine</td>
+                <td>Doctor</td>
+                </thead>
+                    {% for i in pres %}
+                        <tr>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.disease }}</td>
+                            <td>{{ i.medicine }}</td>
+                            <td>{{ i.doc.user.get_full_name }}</td>
+                        </tr>
+                    {% endfor %}
+            </table>
+        {% else %}
+            <p>No prescription available!!!</p>
+        {% endif %}
+    {% elif mode == 'view' %}
+        <h1>Prescription</h1>
+        <a style="margin-left: 15px" href="{% url 'generatePre' 'create' %}"><button type="button">Create</button></a>
+        {% if pres %}
+            <table>
+                <thead>
+                <td>Date</td>
+                <td>Disease</td>
+                <td>Medicine</td>
+                <td>Patient Info</td>
+                </thead>
+                    {% for i in pres %}
+                        <tr>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.disease }}</td>
+                            <td>{{ i.medicine }}</td>
+                            <td>{{ i.pat.user.get_full_name }}</td>
+                        </tr>
+                    {% endfor %}
+            </table>
+        {% else %}
+            <p>No prescription available!!!</p>
+        {% endif %}
+    {% else %}
+        <h1>Create Prescription</h1>
+        <div class="contact">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

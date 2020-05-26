@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} Profile | {{ block.super }} {% endblock %}
+
+ {% block content %}
+    {% if register == 'y' %}
+        <h1>Create Patient Profile</h1>
+        <div class="contact">
+        <form method="post">
+            {% csrf_token %}
+            {{ b_form.as_p }}
+            {{ m_form.as_p }}
+            {{ pay.as_p }}
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </form>
+        </div>
+    {% elif register == 'n' %}
+            <h1>{{ name }}'s Profile</h1>
+            <div class="contact">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if request.user.username != username %}
+                        {{ pay.as_p }}
+                    {% endif %}
+                    <button type="submit">Update</button>
+                    <button type="reset">Reset</button>
+                </form>
+            </div>
+            <p style="margin-left: 15px">{{ msg }}</p>
+    {% else %}
+        <h1>New Appointment</h1>
+        <div class="contact">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Update</button>
+                <button type="reset">Reset</button>
+            </form>
+        </div>
+    {% endif %}
+     {% if msg %}
+     <p style="margin-left: 15px">{{ msg }}</p>
+     {% endif %}
+ {% endblock %}

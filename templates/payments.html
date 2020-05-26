@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} Invoice & Payments | {{ block.super }} {% endblock %}
+
+{% block content %}
+<h1>Invoice & Payments</h1>
+{% if payments %}
+    <table>
+        <thead>
+            <td>Invoice</td>
+            <td>Paid</td>
+            <td>Outstanding</td>
+            <td>Date</td>
+        </thead>
+        {% for i in payments %}
+            <tr>
+                <td><a href="{% url 'generateInvoice' i.id %}"><button type="button">Invoice</button></a></td>
+                <td>{{ i.paid }}</td>
+                <td>{{ i.outstanding }}</td>
+                <td>{{ i.date.date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No Payment Records available!!!</p>
+{% endif %}
+{% endblock %}

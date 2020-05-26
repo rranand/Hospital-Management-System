@@ -1,0 +1,27 @@
+<div class="header">
+    <a class="title" href="{% url 'homepage' %}">HMS</a>
+    <div class="nav">
+        <ul class="menu">
+            <li><a class="links" href="{% url 'homepage' %}">Home</a></li>
+            <li><a class="links" href="{% url 'about_us' %}">About Us</a></li>
+            <li><a class="links" href="{% url 'contact_us' %}">Contact</a></li>
+            {% if not request.user.is_authenticated %}
+                <li><a class="links" href="{% url 'user_register' %}">Register</a></li>
+                <li><a class="links" href="{% url 'user_login' %}">Login</a></li>
+            {% else %}
+                {% if profile.is_doc == 2 %}
+                    <li><a class="links" href="{% url 'InvoicePay' %}">Invoice & Payments</a></li>
+                    <li><a class="links" href="{% url 'pat_update' profile.id 'pat' %}">Profile</a></li>
+                    <li><a class="links" href="{% url 'generatePre' 'view_p' %}">Medical History</a></li>
+                {% elif profile.is_doc == 1 %}
+                    <li><a class="links" href="{% url 'generatePre' 'view' %}">Prescription</a></li>
+                    <li><a class="links" href="{% url 'pat_update' profile.id 'doc' %}">Profile</a></li>
+                {% elif profile.is_doc == 3 %}
+                    <li><a class="links" href="{% url 'accounting' %}">Accounting</a></li>
+                {% endif %}
+                    <li><a class="links" href="{% url 'user_logged_in' %}">Dashboard</a></li>
+                    <li><a class="links" href="{% url 'log_out' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

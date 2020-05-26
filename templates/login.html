@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Login | {{ block.super }} {% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+    <div class="contact">
+        <form method="post">
+            {% csrf_token %}
+            {{ logi.as_p }}
+            <button style="margin-left: 10px" type="submit">Login</button>
+            <button style="margin-left: 10px" type="reset">Reset</button>
+        </form>
+    </div>
+    {% if msg %}
+    <p>{{ msg }}</p>
+    {% endif %}
+{% endblock %}

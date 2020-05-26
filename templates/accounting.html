@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load customfilters %}
+{% block title %} Accounting | {{ block.super }} {% endblock %}
+
+{% block content %}
+<div class="rec_main">
+            <div class="create_app">
+                <h1>Individual Outstanding</h1>
+                {% if pati %}
+                <table>
+                    <thead>
+                        <td>Patient</td>
+                        <td>Outstanding</td>
+                        <td>Paid</td>
+                        <td>Remainder</td>
+                    </thead>
+                    {% for i in pati %}
+                        <tr>
+                            <td>{{ i.user.get_full_name }}</td>
+                            <td>{{ i.user.username|latest_pay_paid }}</td>
+                            <td>{{ i.user.username|latest_pay_out }}</td>
+                            <td><a href="mailto:{{ i.user.email }}"><button type="button">Send Email</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                    {% else %}
+                    <p>No Remaining Outstanding!!!</p>
+                    {% endif %}
+            </div>
+            <div class="create_pat">
+                <h1>Consultation Outstanding</h1>
+                {% if pat %}
+                <table>
+                    <thead>
+                        <td>Date</td>
+                        <td>Name</td>
+                        <td>Paid</td>
+                        <td>Outstanding</td>
+                        <td>Total</td>
+                        <td>Invoice</td>
+                    </thead>
+                    {% for i in pat %}
+                        <tr>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.pat.user.get_full_name }}</td>
+                            <td>{{ i.paid }}</td>
+                            <td>{{ i.outstanding }}</td>
+                            <td>{{ i.paid|add:i.outstanding }}</td>
+                            <td><a href="{% url 'generateInvoice' i.id %}"><button type="button">Invoice</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                    {% else %}
+                    <p>No Remaining Outstanding!!!</p>
+                    {% endif %}
+            </div>
+        </div>
+{% endblock %}

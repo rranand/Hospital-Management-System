@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Register | {{ block.super }} {% endblock %}
+
+{% block content %}
+    <h1>Register</h1>
+    <div class="contact">
+        <form method="post">
+            {% csrf_token %}
+            {{ regi.as_p }}
+            <p><label for="id_choice">Choice:</label> <select name="choice" id="id_choice" required>
+                <option value="1" selected>Doctor</option>
+                <option value="2">Patient</option>
+                </select></p>
+            <button style="margin-left: 10px" type="submit">Regsiter</button>
+            <button style="margin-left: 10px" type="reset">Reset</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard | {{ block.super }} {% endblock %}
+
+{% block content %}
+    {% if profile.is_doc == 1 %}
+        <h1>Appointments</h1>
+        {% if appoint %}
+            <table>
+                <thead>
+                <td>Date</td>
+                <td>Time</td>
+                <td>Patient Info</td>
+                </thead>
+                    {% for i in appoint %}
+                        <tr>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.time }}</td>
+                            <td>{{ i.pat.user.get_full_name }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+        {% else %}
+            <p style="margin-left: 15px">No appointment left!!!</p>
+        {% endif %}
+    {% elif profile.is_doc == 2 %}
+        <h1>Your Appointments</h1>
+        {% if appoint %}
+                <table>
+                    <thead>
+                    <td>Date</td>
+                    <td>Time</td>
+                    <td>Doctor</td>
+                    <td>Status</td>
+                    </thead>
+                        {% for i in appoint %}
+                            <tr>
+                                <td>{{ i.date }}</td>
+                                <td>{{ i.time }}</td>
+                                <td>{{ i.doc.user.get_full_name }}</td>
+                                <td>{{ i.get_status_display }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+        {% else %}
+            <p style="margin-left: 15px">No appointment available!!!</p>
+        {% endif %}
+    {% elif profile.is_doc == 3 %}
+        <div class="rec_appointments">
+            <div class="total_appointments">
+                <h3>Total Doctors</h3>
+                <p>{{ tot }}</p>
+            </div>
+            <div class="done_appointments">
+                <h3>Total Patients</h3>
+                <p>{{ pend }}</p>
+            </div>
+            <div class="pending_appointments">
+                <h3>On Duty Doctors</h3>
+                <p>{{ due }}</p>
+            </div>
+        </div>
+        <br>
+        <h1>Doctors</h1>
+        <div class="doct">
+            {% if doc %}
+                <table>
+                    <thead>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Gender</td>
+                        <td>Age</td>
+                        <td>Status</td>
+                        <td>Department</td>
+                        <td>Attendance</td>
+                        <td>Salary</td>
+                        <td>Update</td>
+                        <td>Delete</td>
+                    </thead>
+                    {% for i in doc %}
+                        <tr>
+                            <td>{{ i.user.get_full_name }}</td>
+                            <td>{{ i.user.email }}</td>
+                            <td>{{ i.get_gender_display }}</td>
+                            <td>{{ i.age }}</td>
+                            <td>{{ i.get_status_display }}</td>
+                            <td>{{ i.specialist }}</td>
+                            <td>{{ i.attendance }}</td>
+                            <td>{{ i.salary }}</td>
+                            <td><a href="{% url 'pat_update' i.id 'doc' %}"><button type="button">Update</button></a></td>
+                            <td><a href="{% url 'pat_delete' i.id 'doc' %}"><button type="button">Remove</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                    {% else %}
+                    <p style="margin-left: 15px">No Doctors in this H!!!</p>
+                    {% endif %}
+        </div>
+    {% elif profile.is_doc == 4 %}
+        <div class="rec_appointments">
+            <div class="total_appointments">
+                <h3>Total Appointments</h3>
+                <p>{{ due|add:pend }}</p>
+            </div>
+            <div class="done_appointments">
+                <h3>Appointments Done</h3>
+                <p>{{ due }}</p>
+            </div>
+            <div class="pending_appointments">
+                <h3>Pending Appointments</h3>
+                <p>{{ pend }}</p>
+            </div>
+        </div>
+
+        <div class="rec_main">
+            <div class="create_app">
+                <h3>Appointments</h3>
+                <a href="{% url 'pat_update' 'appointment' 'pat' %}"><button type="button">Create Appointment</button></a>
+                {% if appoint %}
+                <table>
+                    <thead>
+                        <td>Date</td>
+                        <td>Time</td>
+                        <td>Doctor</td>
+                        <td>Patient</td>
+                        <td>Status</td>
+                    </thead>
+                    {% for i in appoint %}
+                        <tr>
+                            <td>{{ i.date }}</td>
+                            <td>{{ i.time }}</td>
+                            <td>{{ i.doc.user.get_full_name }}</td>
+                            <td>{{ i.pat.user.get_full_name }}</td>
+                            <td>{{ i.get_status_display }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                    {% else %}
+                    <p style="margin-left: 15px">No appointments!!!</p>
+                    {% endif %}
+            </div>
+            <div class="create_pat">
+                <h3>Last 5 Patients</h3>
+                <a href="{% url 'pat_update' 'create' 'pat' %}"><button type="button">Create Patient</button></a>
+                {% if patients %}
+                <table>
+                    <thead>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Gender</td>
+                        <td>Age</td>
+                        <td>Update</td>
+                        <td>Remove</td>
+                    </thead>
+                    {% for i in patients %}
+                        <tr>
+                            <td>{{ i.user.get_full_name }}</td>
+                            <td>{{ i.user.email }}</td>
+                            <td>{{ i.get_gender_display }}</td>
+                            <td>{{ i.age }}</td>
+                            <td><a href="{% url 'pat_update' i.id 'pat' %}"><button type="button">Update</button></a></td>
+                            <td><a href="{% url 'pat_delete' i.id 'pat' %}"><button type="button">Remove</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                    {% else %}
+                    <p style="margin-left: 15px">No Patients!!!</p>
+                    {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
