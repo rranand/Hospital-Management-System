@@ -13,4 +13,4 @@ Features:
   l)Patient Medical Files Archive
   m)Prescription
   n)Patient Payment History
-  0)Receptionist Database and its login(Receptionist interface)
+  o)Receptionist Database and its login(Receptionist interface)
