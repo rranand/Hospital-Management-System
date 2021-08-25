@@ -17,3 +17,28 @@
   11)Prescription  <br />
   12)Patient Payment History  <br />
   13)Receptionist Database and its login(Receptionist interface)  <br />
+  
+# Technology
+  1) Python
+  2) Django
+  3) HTML
+  4) CSS
+
+# Installation
+  ```
+  git clone https://github.com/rranand/Hospital-Management-System.git
+  
+  cd Hospital-Management-System
+  ```
+  
+  ```
+  pip3 install virtualenv
+
+  mkvirtualenv hms
+  
+  source venv/bin/activate
+
+  pip3 install -r requirement.txt
+
+  python3 manage.py runserver
+  ```
