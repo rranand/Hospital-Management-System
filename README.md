@@ -32,13 +32,13 @@
   ```
   
   ```
-  pip3 install virtualenv
+  sudo apt install python3-venv
 
-  mkvirtualenv hms
+  python3 -m venv hms
   
-  source venv/bin/activate
+  source hms/bin/activate
 
-  pip3 install -r requirement.txt
+  pip3 install -r requirements.txt
 
   python3 manage.py runserver
   ```
